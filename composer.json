@@ -1,0 +1,26 @@
+{
+    "name": "streams/dev",
+    "description": "A helpful Streams development companion for you.",
+    "authors": [
+        {
+            "name": "Ryan Thompson",
+            "email": "ryan@pyrocms.com"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Streams\\Dev\\": "src/"
+        }
+    },
+    "config": {
+        "bin-dir": "bin"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Streams\\Dev\\DevServiceProvider"
+            ]
+        }
+    }
+}
