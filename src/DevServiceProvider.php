@@ -3,6 +3,7 @@
 namespace Streams\Dev;
 
 use Illuminate\Support\ServiceProvider;
+use Streams\Core\Support\Facades\Streams;
 
 /**
  * Class DevServiceProvider
@@ -44,23 +45,23 @@ class DevServiceProvider extends ServiceProvider
     {
         //$this->mergeConfigFrom(__DIR__ . '/../resources/config/cp.php', 'streams.cp');
 
-        // Streams::register([
-        //     'handle' => 'cp.navigation',
-        //     'source' => [
-        //         'path' => 'streams/cp/navigation',
-        //         'format' => 'json',
-        //     ],
-        //     'config' => [
-        //         'prototype' => 'Streams\\Ui\\ControlPanel\\Component\\Navigation\\NavigationLink',
-        //     ],
-        //     'fields' => [
-        //         'title' => 'string',
-        //         'parent' => [
-        //             'type' => 'relationship',
-        //             'related' => 'cp.navigation',
-        //         ],
-        //     ],
-        // ]);
+        Streams::register([
+            'handle' => 'dev.blueprints',
+            'source' => [
+                'path' => 'streams/dev/blueprints',
+                'format' => 'json',
+            ],
+            'config' => [
+                'prototype' => 'Streams\\Dev\\Blueprint\\Blueprint',
+            ],
+            'fields' => [
+                'title' => 'string',
+                'parent' => [
+                    'type' => 'relationship',
+                    'related' => 'cp.navigation',
+                ],
+            ],
+        ]);
     }
 
     /**
@@ -72,5 +73,14 @@ class DevServiceProvider extends ServiceProvider
         //     base_path('vendor/streams/ui/resources/public')
         //     => public_path('vendor/streams/ui')
         // ], ['public']);
+
+        /**
+         * Register core commands.
+         */
+        if ($this->app->runningInConsole()) {
+            $this->commands([
+                \Streams\Dev\Console\StreamsMake::class
+            ]);
+        }
     }
 }
