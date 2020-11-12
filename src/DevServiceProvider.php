@@ -52,7 +52,8 @@ class DevServiceProvider extends ServiceProvider
 
         if ($this->app->runningInConsole()) {
             $this->commands([
-                \Streams\Dev\Console\StreamsMake::class
+                \Streams\Dev\Console\StreamsMake::class,
+                \Streams\Dev\Console\StreamsDescribe::class,
             ]);
         }
     }

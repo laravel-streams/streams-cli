@@ -5,7 +5,7 @@ namespace Streams\Dev\Console;
 use Illuminate\Console\Command;
 use Streams\Core\Support\Facades\Streams;
 
-class StreamsMake extends Command
+class StreamsDescribe extends Command
 {
     
     /**
@@ -13,8 +13,8 @@ class StreamsMake extends Command
      *
      * @var string
      */
-    protected $signature = 'streams:make
-        {blueprint : The handle/gist of the desired blueprint.}
+    protected $signature = 'streams:describe : Generate a stream describing the target data source.
+        {target : The database, table, or model to describe.}
         {input? : Formatted input to send the blueprint.}
         {--input= : JSON input to send the blueprint.}';
 
