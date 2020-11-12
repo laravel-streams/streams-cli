@@ -2,5 +2,5 @@
 
 
 ```bash
-php artisan streams:make {blueprint} {--options}
+php artisan streams:describe table|model
 ```
