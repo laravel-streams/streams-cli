@@ -43,8 +43,25 @@ class DevServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //$this->mergeConfigFrom(__DIR__ . '/../resources/config/cp.php', 'streams.cp');
+        // $this->mergeConfigFrom(__DIR__ . '/../resources/config/cp.php', 'streams.cp');
 
+        // $this->publishes([
+        //     base_path('vendor/streams/ui/resources/public')
+        //     => public_path('vendor/streams/ui')
+        // ], ['public']);
+
+        if ($this->app->runningInConsole()) {
+            $this->commands([
+                \Streams\Dev\Console\StreamsMake::class
+            ]);
+        }
+    }
+
+    /**
+     * Boot the service provider.
+     */
+    public function boot()
+    {
         Streams::register([
             'handle' => 'dev.blueprints',
             'source' => [
@@ -55,32 +72,12 @@ class DevServiceProvider extends ServiceProvider
                 'prototype' => 'Streams\\Dev\\Blueprint\\Blueprint',
             ],
             'fields' => [
-                'title' => 'string',
+                'template' => [],
                 'parent' => [
                     'type' => 'relationship',
                     'related' => 'cp.navigation',
                 ],
             ],
         ]);
-    }
-
-    /**
-     * Boot the service provider.
-     */
-    public function boot()
-    {
-        // $this->publishes([
-        //     base_path('vendor/streams/ui/resources/public')
-        //     => public_path('vendor/streams/ui')
-        // ], ['public']);
-
-        /**
-         * Register core commands.
-         */
-        if ($this->app->runningInConsole()) {
-            $this->commands([
-                \Streams\Dev\Console\StreamsMake::class
-            ]);
-        }
     }
 }

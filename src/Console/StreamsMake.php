@@ -13,12 +13,17 @@ class StreamsMake extends Command
      *
      * @var string
      */
-    protected $signature = 'streams:make {blueprint}';
+    protected $signature = 'streams:make
+        {blueprint : The handle of the desired blueprint.}
+        {input? : Formatted input to send the blueprint.}
+        {--input= : JSON input to send the blueprint.}';
 
     public function handle()
     {
         $blueprint = Streams::repository('dev.blueprints')->find($this->argument('blueprint'));
         
-        dd($blueprint);
+        $input = json_decode($this->option('input'), true);
+        
+        dd($input);
     }
 }
