@@ -5,7 +5,7 @@ namespace Streams\Cli\Console;
 use Illuminate\Console\Command;
 use Streams\Core\Support\Facades\Streams;
 
-class StreamsMake extends Command
+class StreamsRun extends Command
 {
     
     /**
@@ -13,8 +13,8 @@ class StreamsMake extends Command
      *
      * @var string
      */
-    protected $signature = 'streams:make
-        {blueprint : The handle/gist of the desired blueprint.}
+    protected $signature = 'streams:run
+        {workflow : The handle/gist of the desired workflow.}
         {options? : Formatted options to send the blueprint.}
         {--json= : JSON input to send the blueprint.}';
 

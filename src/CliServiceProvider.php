@@ -1,6 +1,6 @@
 <?php
 
-namespace Streams\Dev;
+namespace Streams\Cli;
 
 use Illuminate\Support\ServiceProvider;
 use Streams\Core\Support\Facades\Streams;
@@ -45,8 +45,8 @@ class CliServiceProvider extends ServiceProvider
 
         if ($this->app->runningInConsole()) {
             $this->commands([
-                \Streams\Dev\Console\StreamsMake::class,
-                \Streams\Dev\Console\StreamsDescribe::class,
+                \Streams\Cli\Console\StreamsMake::class,
+                \Streams\Cli\Console\StreamsDescribe::class,
             ]);
         }
     }
