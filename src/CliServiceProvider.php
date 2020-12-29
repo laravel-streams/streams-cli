@@ -1,18 +1,11 @@
 <?php
 
-namespace Streams\Dev;
+namespace Streams\Cli;
 
 use Illuminate\Support\ServiceProvider;
 use Streams\Core\Support\Facades\Streams;
 
-/**
- * Class DevServiceProvider
- *
- * @link   http://pyrocms.com/
- * @author PyroCMS, Inc. <support@pyrocms.com>
- * @author Ryan Thompson <ryan@pyrocms.com>
- */
-class DevServiceProvider extends ServiceProvider
+class CliServiceProvider extends ServiceProvider
 {
 
     /**
@@ -52,8 +45,8 @@ class DevServiceProvider extends ServiceProvider
 
         if ($this->app->runningInConsole()) {
             $this->commands([
-                \Streams\Dev\Console\StreamsMake::class,
-                \Streams\Dev\Console\StreamsDescribe::class,
+                \Streams\Cli\Console\StreamsMake::class,
+                \Streams\Cli\Console\StreamsDescribe::class,
             ]);
         }
     }

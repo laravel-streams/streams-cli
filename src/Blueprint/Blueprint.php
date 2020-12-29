@@ -1,6 +1,6 @@
 <?php
 
-namespace Streams\Dev\Blueprint;
+namespace Streams\Cli\Blueprint;
 
 use Illuminate\Contracts\Support\Jsonable;
 use Streams\Core\Support\Facades\Hydrator;
