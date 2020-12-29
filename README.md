@@ -1,6 +1,7 @@
-## Streams Dev
+## Streams CLI
 
 
 ```bash
-php artisan streams:describe table|model
+php artisan streams:make {blueprint}
+php artisan streams:run {workflow}
 ```
