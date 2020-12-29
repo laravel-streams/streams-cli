@@ -47,6 +47,7 @@ class CliServiceProvider extends ServiceProvider
             $this->commands([
                 \Streams\Cli\Console\StreamsMake::class,
                 \Streams\Cli\Console\EntriesCreate::class,
+                \Streams\Cli\Console\EntriesUpdate::class,
             ]);
         }
     }
