@@ -5,14 +5,7 @@ namespace Streams\Dev;
 use Illuminate\Support\ServiceProvider;
 use Streams\Core\Support\Facades\Streams;
 
-/**
- * Class DevServiceProvider
- *
- * @link   http://pyrocms.com/
- * @author PyroCMS, Inc. <support@pyrocms.com>
- * @author Ryan Thompson <ryan@pyrocms.com>
- */
-class DevServiceProvider extends ServiceProvider
+class CliServiceProvider extends ServiceProvider
 {
 
     /**
