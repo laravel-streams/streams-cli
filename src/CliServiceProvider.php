@@ -46,7 +46,7 @@ class CliServiceProvider extends ServiceProvider
         if ($this->app->runningInConsole()) {
             $this->commands([
                 \Streams\Cli\Console\StreamsMake::class,
-                \Streams\Cli\Console\StreamsDescribe::class,
+                \Streams\Cli\Console\EntriesCreate::class,
             ]);
         }
     }
@@ -57,19 +57,19 @@ class CliServiceProvider extends ServiceProvider
     public function boot()
     {
         Streams::register([
-            'handle' => 'dev.blueprints',
+            'handle' => 'cli.blueprints',
             'source' => [
-                'path' => 'streams/dev/blueprints',
+                'path' => 'streams/cli/blueprints',
                 'format' => 'json',
             ],
             'config' => [
-                'prototype' => 'Streams\\Dev\\Blueprint\\Blueprint',
+                'prototype' => 'Streams\\Cli\\Blueprint\\Blueprint',
             ],
             'fields' => [
                 'template' => [],
                 'parent' => [
                     'type' => 'relationship',
-                    'related' => 'cp.navigation',
+                    'related' => 'cli.blueprints',
                 ],
             ],
         ]);

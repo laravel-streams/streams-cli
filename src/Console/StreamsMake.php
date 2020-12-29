@@ -15,16 +15,19 @@ class StreamsMake extends Command
      */
     protected $signature = 'streams:make
         {blueprint : The handle/gist of the desired blueprint.}
-        {options? : Formatted options to send the blueprint.}
+        {input? : Formatted input to send the blueprint.}
         {--json= : JSON input to send the blueprint.}';
 
     public function handle()
     {
-        $blueprint = Streams::repository('dev.blueprints')->find($this->argument('blueprint'));
+        $blueprint = Streams::repository('cli.blueprints')->find($this->argument('blueprint'));
         
-        $options = $this->argument('options');
-        $json = json_decode($this->option('json'), true);
+        if ($input = $string = $this->argument('input')) {
+            parse_str($string, $input);
+        }
         
-        dd($options);
+        $input = json_decode($this->option('json'), true) ?: $input;
+        
+        dd($input);
     }
 }
