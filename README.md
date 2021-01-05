@@ -2,6 +2,6 @@
 
 
 ```bash
-php artisan streams:make {blueprint}
-php artisan streams:run {workflow}
+php artisan streams:make {blueprint} --input="parsed_str"  --json="json_decoded"
+php artisan streams:run {workflow} --input="parsed_str"  --json="json_decoded"
 ```
