@@ -17,7 +17,8 @@ class EntriesCreate extends Command
     protected $signature = 'entries:create
         {stream : The entry stream.}
         {input? : Formatted entry input.}
-        {--json= : JSON entry input.}';
+        {--json= : JSON entry input.}
+        {--ask : Ask for missing input.}';
 
     public function handle()
     {
@@ -27,7 +28,15 @@ class EntriesCreate extends Command
             parse_str($string, $input);
         }
 
-        $input = json_decode($this->option('json'), true) ?: $input;
+        $input = (array) (json_decode($this->option('json'), true) ?: $input);
+
+        if (!$input || $this->argument('ask')) {
+            $this->askForInput($stream, $input);
+        }
+        
+        if (!$input) {
+            return $this->error('Truly, one cannot create something from nothing.');
+        }
 
         $messages = $stream->validator($input)->messages()->all();
 
@@ -42,10 +51,23 @@ class EntriesCreate extends Command
 
         $entry = $stream->repository()->create($input);
 
-        if ($stream->source['type'] == 'filebase') {
-            $this->info('Created: ' . base_path($stream->source['path'] . '/' . $entry->id . '.' . Arr::get($stream->source, 'format', 'md')));
-        }
+        // If has path in config might be better?
+        // if ($stream->source['type'] == 'filebase') {
+        //     $this->info('Created: ' . base_path($stream->source['path'] . '/' . $entry->id . '.' . Arr::get($stream->source, 'format', 'md')));
+        // }
 
-        $this->info($entry);
+        $this->info([
+            'data' => $entry,
+            'message' => 'Entry created successfully.',
+        ]);
+    }
+
+    public function askForInput($stream, &$input)
+    {
+        foreach ($stream->fields as $field) {
+            if (!is_null($value = $this->ask("{$field->name()}: " . ($field->isRequired() ? '(*)' : '')))) {
+                $input[$field->handle] = $value;
+            }
+        }
     }
 }

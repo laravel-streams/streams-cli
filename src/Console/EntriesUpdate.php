@@ -23,17 +23,17 @@ class EntriesUpdate extends Command
     public function handle()
     {
         $stream = Streams::make($this->argument('stream'));
-        $entry = $stream->repository()->find($this->argument('entry'));
+        $entry = $stream->repository()->find($id = $this->argument('entry'));
 
         if ($input = $string = $this->argument('input')) {
             parse_str($string, $input);
         }
 
-        $input = json_decode($this->option('json'), true) ?: $input;
+        $input = (array) (json_decode($this->option('json'), true) ?: $input);
 
         $entry->loadPrototypeAttributes($input);
 
-        $messages = $entry->validator($input)->messages()->all();
+        $messages = $stream->validator($entry)->messages()->all();
 
         if ($messages) {
 
@@ -46,10 +46,13 @@ class EntriesUpdate extends Command
 
         $entry->save();
 
-        if ($stream->source['type'] == 'filebase') {
-            $this->info('Updated: ' . base_path($stream->source['path'] . '/' . $entry->id . '.' . Arr::get($stream->source, 'format', 'md')));
-        }
+        // if ($stream->source['type'] == 'filebase') {
+        //     $this->info('Updated: ' . base_path($stream->source['path'] . '/' . $entry->id . '.' . Arr::get($stream->source, 'format', 'md')));
+        // }
 
-        $this->info($entry);
+        $this->info([
+            'data' => $entry,
+            'message' => "Entry [{$id}] updated successfully.",
+        ]);
     }
 }
