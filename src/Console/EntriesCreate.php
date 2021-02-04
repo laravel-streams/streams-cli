@@ -30,7 +30,7 @@ class EntriesCreate extends Command
 
         $input = (array) (json_decode($this->option('json'), true) ?: $input);
 
-        if (!$input || $this->argument('ask')) {
+        if (!$input || $this->hasArgument('ask')) {
             $this->askForInput($stream, $input);
         }
         
@@ -56,10 +56,10 @@ class EntriesCreate extends Command
         //     $this->info('Created: ' . base_path($stream->source['path'] . '/' . $entry->id . '.' . Arr::get($stream->source, 'format', 'md')));
         // }
 
-        $this->info([
-            'data' => $entry,
+        $this->info(json_encode([
             'message' => 'Entry created successfully.',
-        ]);
+            'data' => $entry,
+        ]));
     }
 
     public function askForInput($stream, &$input)
