@@ -8,6 +8,9 @@
             "email": "ryan@pyrocms.com"
         }
     ],
+    "require": {
+        "streams/core": "^2.0"
+    },
     "autoload": {
         "psr-4": {
             "Streams\\Cli\\": "src/"
